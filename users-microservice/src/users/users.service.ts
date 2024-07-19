@@ -29,6 +29,10 @@ export class UsersService {
         return this.usersRepository.findOneBy({ id });
     }
 
+    async findByEmail(email: string, select?: Array<keyof User>): Promise<User> {
+        return this.usersRepository.findOne({ where: { email }, select });
+    }
+
     async create(createUserDto: CreateUserDto): Promise<User> {
         try {
             const isExists = await this.usersRepository.existsBy({ email: createUserDto.email });
@@ -39,6 +43,7 @@ export class UsersService {
             return this.usersRepository.save(createUserDto);
         } catch (error) {
             this.logger.error(`Error while user creating: ${error.message}`);
+            throw error;
         }
     }
 
@@ -54,6 +59,7 @@ export class UsersService {
             return this.usersRepository.save({ ...user, ...updateUserDto });
         } catch (error) {
             this.logger.error(`Error while user updating: ${error.message}`);
+            throw error;
         }
     }
 
@@ -69,6 +75,7 @@ export class UsersService {
             }
         } catch (error) {
             this.logger.error(`Error while user deleting: ${error.message}`);
+            throw error;
         }
     }
 }

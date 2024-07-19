@@ -7,6 +7,7 @@ async function bootstrap(): Promise<void> {
     const logger = new Logger();
 
     const app = await NestFactory.create(AppModule);
+    app.setGlobalPrefix('/api');
     const config = app.get<ConfigService>(ConfigService);
     app.useGlobalPipes(new ValidationPipe());
 
