@@ -8,12 +8,8 @@ services:
       - "4566:4566"  # LocalStack Gateway
       - "4575:4575"  # SNS
       - "4576:4576"  # SQS
-    # environment:
-    #   - SERVICES=sns,sqs
-    #   - AWS_DEFAULT_REGION=us-east-1
-    #   - EDGE_PORT=4566
     env_file:
-      - 'env/localstak.env'
+      - 'env/localstack.env'
     volumes:
       - '${LOCALSTACK_VOLUME_DIR:-../localstack}:/var/lib/localstack'
       - "/var/run/docker.sock:/var/run/docker.sock"
@@ -24,10 +20,6 @@ services:
     restart: always
     ports:
       - "5432:5432"
-    # environment:
-    #   POSTGRES_USER: postgres
-    #   POSTGRES_PASSWORD: '12345678'
-    #   POSTGRES_DB: users
     env_file:
       - 'env/postgres.env'
     volumes:
