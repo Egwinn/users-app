@@ -15,9 +15,13 @@ export class AuthService {
     async signIn(email: string, pass: string): Promise<SignInResponseDto> {
         try {
             const user = await this.usersService.findByEmail(email, ['id', 'email', 'password']);
+            if (!user) {
+                throw new UnauthorizedException('User with such email does not exist');
+            }
+
             const isEqual = await bcrypt.compare(pass, user.password);
-            if (!user || !isEqual) {
-                throw new UnauthorizedException('Invalid email or password');
+            if (!isEqual) {
+                throw new UnauthorizedException('Invalid password');
             }
 
             const payload = { sub: user.id, email: user.email };
