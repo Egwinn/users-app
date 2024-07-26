@@ -11,7 +11,7 @@ import { SqsModule } from '@ssut/nestjs-sqs';
                 return {
                     consumers: [
                         {
-                            name: configService.get<string>('SQS_QUEUE_ARN'),
+                            name: configService.get<string>('SQS_QUEUE_NAME'),
                             queueUrl: configService.get<string>('SQS_QUEUE_URL'),
                             region: configService.get<string>('AWS_REGION'),
                             terminateGracefully: true,

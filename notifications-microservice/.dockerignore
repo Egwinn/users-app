@@ -1,0 +1,18 @@
+# Common
+README.md
+CHANGELOG.md
+docker-compose.yml
+Dockerfile
+.dockerignore
+
+# git
+.git
+.gitignore
+
+# Archive
+*.tar
+
+# node
+dist
+node_modules
+npm-debug.log
