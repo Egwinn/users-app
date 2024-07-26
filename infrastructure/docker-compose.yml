@@ -1,6 +1,32 @@
 version: "3.8"
 
 services:
+  users-microservice:
+    build: '../users-microservice'
+    container_name: users-microservice
+    ports:
+      - 3000:3000
+    env_file:
+      - 'env/users-service.env'
+    restart: always
+    depends_on:
+      localstack:
+        condition: service_healthy
+      postgres:
+        condition: service_started
+
+  notifications-microservice:
+    build: '../notifications-microservice'
+    container_name: notifications-microservice
+    ports:
+      - 4000:4000
+    env_file:
+      - 'env/notif-service.env'
+    restart: always
+    depends_on:
+      localstack:
+        condition: service_healthy
+
   localstack:
     container_name: 'localstack'
     image: localstack/localstack:3.5.0
